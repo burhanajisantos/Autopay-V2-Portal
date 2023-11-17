@@ -3,6 +3,7 @@ Feature('3_1_MM_Filter_Data');
 Before(async ({ login }) => {
     login("admin");
 });
+
 Scenario('Main Flow Filter Data', async ({ I }) => {
     var today = new Date();
     var date =
@@ -40,4 +41,5 @@ Scenario('Main Flow Filter Data', async ({ I }) => {
   await I.pressKey("Enter");
   await I.click("#merchantsearch-status");
   await I.click("//li[.='" + status + "']");
+  await I.pressKey("Enter");
 });
