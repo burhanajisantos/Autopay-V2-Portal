@@ -1,6 +1,6 @@
 Feature('login');
 
-Scenario('Main Flow',  ({ I }) => {
+Scenario('Login Main Flow',  ({ I }) => {
     I.amOnPage(process.env.url)
     I.fillField('#loginform-username', process.env.useradmin)
     I.fillField('#loginform-password', process.env.passadmin)

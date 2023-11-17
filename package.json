@@ -3,5 +3,8 @@
     "codeceptjs": "^3.5.8",
     "dotenv": "^16.3.1",
     "puppeteer": "^21.5.2"
+  },
+  "devDependencies": {
+    "mailosaur": "^8.6.1"
   }
 }
