@@ -42,4 +42,5 @@ Scenario('Main Flow Filter Data', async ({ I }) => {
   await I.click("#merchantsearch-status");
   await I.click("//li[.='" + status + "']");
   await I.pressKey("Enter");
+  await I.see("Showing 1-1 of 1 item.");
 });

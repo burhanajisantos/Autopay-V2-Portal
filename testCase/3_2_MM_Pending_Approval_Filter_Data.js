@@ -1,10 +1,10 @@
-Feature('3_2_MM_Pending_Aproval_Filter_Data');
+Feature('3_2_MM_Pending_Approval_Filter_Data');
 
 Before(async ({ login }) => {
     login("admin");
 });
 
-Scenario('Main Flow Pending Aproval Filter Data', async ({ I }) => {
+Scenario('Main Flow Pending Approval Filter Data', async ({ I }) => {
     var today = new Date();
     var date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
@@ -23,4 +23,5 @@ Scenario('Main Flow Pending Aproval Filter Data', async ({ I }) => {
     await I.pressKey("Enter");
     await I.fillField("#merchantapprovalsearch-new_value", NewBNIGiro);
     await I.pressKey("Enter");
+    await I.see("Showing 1-1 of 1 item.");
 });
