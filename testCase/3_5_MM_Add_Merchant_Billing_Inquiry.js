@@ -1,4 +1,4 @@
-Feature('3_4_MM_Add_Merchant_Retail');
+Feature('3_5_MM_Add_Merchant_Billing_Inquiry');
 
 const fs = require("fs");
 const faker = require('faker');
@@ -7,7 +7,7 @@ Before(async ({ login }) => {
     login("admin");
 });
 
-Scenario('Main Flow Add Merchant Retail', async ({ I }) => {
+Scenario('Main Flow Add Merchant Billing Inquiry', async ({ I }) => {
 
     const randNumber = faker.random.number({min: 111111111, max: 9999999999});
     const ID = faker.phone.phoneNumber("#####");
@@ -19,7 +19,7 @@ Scenario('Main Flow Add Merchant Retail', async ({ I }) => {
     await I.click(
         "#merchant-form > div:nth-child(2) > div.card-body > div.form-group.row.highlight-addon.field-merchant-merchant_type.required > div > span > span.selection > span"
       );
-    await I.click("//li[.='Retail']");
+    await I.click("//li[.='Billing Inquiry']");
     await I.fillField("#merchant-merchant_name", "automation burhan"+ randNumber);
     await I.click("#select2-merchant-prefix-container")
     await I.click("//li[.='987']");
@@ -70,28 +70,34 @@ Scenario('Main Flow Add Merchant Retail', async ({ I }) => {
     await I.click(
         "#merchant-form > div:nth-child(5) > div.card-body > div.form-group.row.highlight-addon.field-merchant-disable_otp_unbinding > div > label"
     );
-    // await I.click(
-    //     "#merchant-form > div:nth-child(5) > div.card-body > div.form-group.retail.highlight-addon.row.field-merchant-otp_always_transaction > div > label"
-    // );
-    await I.fillField("#merchant-otp_challenge_transaction", faker.random.number({min: 1, max: 90}));
     await I.click(
-        "#merchant-form > div:nth-child(5) > div.card-body > div.form-group.retail.highlight-addon.row.field-merchant-otp_special_payment > div > label"
-    );
-    await I.fillField("#merchant-binding_transaction_notification_time", faker.random.number({min: 1, max: 720}));
-    await I.fillField("#merchant-daily_limit","100000000");
+      "#merchant-form > div:nth-child(5) > div.card-body > div.form-group.non-retail.billing-inquiry.highlight-addon.row.field-merchant-disable_otp_force_debit > div > label"
+      );
+    await I.fillField("#merchant-limit_billing_amount","100000000");
+    await I.click("#select2-merchant-rule_type-container");
+    await I.click("//li[.='Daily']");
+    await I.fillField("#merchant-rule_time", "0700");
+    //Button debit secondary
+    // await I.click(
+    //   "#merchant-form > div:nth-child(5) > div.card-body > div.form-group.non-retail.billing-inquiry.highlight-addon.row.field-merchant-use_secondary_debit_time > div > label"
+    // );
+    // await I.click(
+    //   "#merchant-form > div:nth-child(5) > div.card-body > div.form-group.non-retail.billing-inquiry.highlight-addon.row.field-merchant-use_secondary_debit_time > div > label"
+    // );
+    await I.fillField("#merchant-secondary_debit_time", "13");
     await I.click("Uncheck All");
     await I.click("Check All");
     await I.click("Save");
     // Validasi
-    await I.fillField("#merchantsearch-merchant_name", "automation"+ randNumber);
+    await I.fillField("#merchantsearch-merchant_name", "automation burhan"+ randNumber);
     await I.pressKey("Enter");
-    await I.see("automation"+ randNumber);
+    await I.see("automation burhan"+ randNumber);
     await I.see("Showing 1-1 of 1 item.");
 
     // save merchant retail ke file json
   fs.readFile("pages/testData/testData.json", "utf8", (err, data) => {
     const information = JSON.parse(data);
-    information[0].merchantRetail = "987" + ID;
+    information[0].merchantBillingInquiry = "987" + ID;
     fs.writeFile(
       "pages/testData/testData.json",
       JSON.stringify(information, null, 2),
