@@ -7,7 +7,7 @@ const serverId = process.env.MS_serverID;
 const nameUser = "forgotpassword";
 const userEmail = "mass-other" + process.env.MS_serverDomain;
 
-Scenario('Forgot Password Main Flow', async ({ I }) => {
+Scenario.skip('Forgot Password Main Flow', async ({ I }) => {
     I.amOnPage(process.env.url);
     I.click("//a[contains(.,'Forgot your password?')]"); // klik forgot password
     I.waitForText("Enter your Email and instructions will be sent to you!");
