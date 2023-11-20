@@ -1,4 +1,4 @@
-Feature('3_2_MM_Pending_Approval_Resend_Email');
+Feature('3_3_MM_Pending_Approval_Resend_Email');
 
 Before(async ({ login }) => {
     login("admin");
