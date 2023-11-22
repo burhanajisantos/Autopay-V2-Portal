@@ -98,6 +98,7 @@ Scenario('Main Flow Add Merchant Billing Inquiry', async ({ I }) => {
   fs.readFile("pages/testData/testData.json", "utf8", (err, data) => {
     const information = JSON.parse(data);
     information[0].merchantBillingInquiry = "987" + ID;
+    information[0].merchantBillingInquiryName = "automation burhan"+ randNumber;
     fs.writeFile(
       "pages/testData/testData.json",
       JSON.stringify(information, null, 2),
