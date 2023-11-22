@@ -83,15 +83,16 @@ Scenario('Main Flow Add Merchant Retail', async ({ I }) => {
     await I.click("Check All");
     await I.click("Save");
     // Validasi
-    await I.fillField("#merchantsearch-merchant_name", "automation"+ randNumber);
+    await I.fillField("#merchantsearch-merchant_name", "automation burhan"+ randNumber);
     await I.pressKey("Enter");
-    await I.see("automation"+ randNumber);
+    await I.see("automation burhan"+ randNumber);
     await I.see("Showing 1-1 of 1 item.");
 
     // save merchant retail ke file json
   fs.readFile("pages/testData/testData.json", "utf8", (err, data) => {
     const information = JSON.parse(data);
     information[0].merchantRetail = "987" + ID;
+    information[0].merchantRetailName = "automation burhan"+ randNumber;
     fs.writeFile(
       "pages/testData/testData.json",
       JSON.stringify(information, null, 2),
