@@ -1,4 +1,4 @@
-Feature('3_7_MM_Edit_Merchant_Billing_Inquiry');
+Feature('3_8_MM_Edit_Merchant_Billing_Inquiry');
 
 const fs = require("fs");
 const faker = require('faker');
