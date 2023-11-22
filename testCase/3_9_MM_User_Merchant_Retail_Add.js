@@ -3,14 +3,21 @@ Feature('3_9_MM_User_Merchant_Retail_Add');
 const fs = require("fs");
 const faker = require('faker');
 
-Before(async ({ login }) => {
-    login("admin");
-});
+// Before(async ({ login }) => {
+//     login("admin");
+// });
 
 Scenario('Main Flow User Merchant Retail Add', async ({ I }) => {
 
+
     const randNumber = faker.random.number({min: 1111, max: 9999});
-    const ID = faker.phone.phoneNumber("#####");
+    //login
+    I.amOnPage(process.env.url)
+    I.fillField('#loginform-username', process.env.useradmin)
+    I.fillField('#loginform-password', process.env.passadmin)
+    I.click('Login')
+    I.waitForText('Dashboard',10)
+    I.see(process.env.useradmin)
 
     await I.click("Merchant Management");
     await I.see("Merchant Management");
@@ -54,6 +61,39 @@ Scenario('Main Flow User Merchant Retail Add', async ({ I }) => {
     // Validation
     await I.fillField("#usermerchantsearch-username",getData[0].userMerchantRetail);
     await I.pressKey("Enter");
-    await I.see(getData[0].userMerchantRetail);
+    await I.waitForText(getData[0].userMerchantRetail);
+
+});
+
+Scenario('Main Flow Login User Merchant', async ({ I }) => {
+
+  const randNumber = faker.random.number({min: 1111, max: 9999});
+  //login
+  I.amOnPage(process.env.url);
+  const getData = I.loadJSON();
+  I.fillField('#loginform-username',getData[0].userMerchantRetail);
+  I.fillField('#loginform-password', getData[0].passMerchantRetail);
+  I.click('Login');
+  I.waitForText('Dashboard',10);
+  I.see(getData[0].userMerchantRetail);
+
+  //changepassword 
+  I.fillField('#changepasswordform-current_password', getData[0].passMerchantRetail);
+  I.fillField('#changepasswordform-new_password', process.env.resetPass);
+  I.fillField('#changepasswordform-repeat_new_password', process.env.resetPass);
+  I.click('Submit');
+
+  //Login again
+  I.fillField('#loginform-username',getData[0].userMerchantRetail);
+  I.fillField('#loginform-password', process.env.resetPass);
+  I.click('Login');
+  I.waitForText('Dashboard',10);
+
+  //validation
+  I.see('Dashboard');
+  I.click('Cust Management');
+  I.see('Customer All');
+  I.click('Report')
+  I.see('Payment History');
 
 });
